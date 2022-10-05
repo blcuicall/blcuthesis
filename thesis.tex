@@ -1,0 +1,125 @@
+% !TeX TS-program = xelatex
+\documentclass[doctor,final,twoside]{BLCUThesis}
+% 必选参数: master/doctor
+%% master: 硕士论文
+%% doctor: 博士论文
+% 可选参数: final
+%% 未指定时：封面为匿名评审版
+%% 指定时： 封面为最终版
+% 可选参数: oneside/twoside
+%% 未指定时：默认为 oneside
+%% oneside: 单面打印版
+%% twoside: 双面打印版（每章都出现在右侧，中间加入空白页）
+
+\begin{document}
+	\thesisTitle{
+		北京语言大学硕士、博士\\ \LaTeX 论文模板
+	}{
+		Beijing Language and Culture University \\ Master and Doctor \LaTeX ~Thesis Template 
+}
+	\stuName{孔存良}
+	\stuCountry{中国}
+	\stuID{xxxxxxx}
+	\stuCollege{信息科学学院}
+	\stuMajor{语言智能与技术}
+	\stuDirection{自然语言生成}
+	\supervisorName{}
+	\thesisCompleteTime{二〇二二}{十}{十一}
+	\integrityStatementAuthor{example-image-golden}
+	\integrityStatementSupervisor{example-image-golden}
+	\integrityStatementDate{2022}{10}{11}
+	
+	\pagestyle{plain}
+	\pagenumbering{Roman}
+	
+	\makecover
+	\makeIntegrityStatement
+	
+	\begin{abstract}
+		在麻省理工、清北复交等众多国际国内知名大学早已拥有属于自己的 \LaTeX{} 模板的时代背景之下，北京语言大学理应拥有一份像样的论文模板。本文介绍北京语言大学硕士、博士研究生学位论文 \LaTeX{} 模板的设计与使用说明，权当抛砖引玉。
+		
+		\keywords{北京语言大学；学位论文模板；\LaTeX 排版系统}
+	\end{abstract}
+	
+	\begin{abstract*}
+		Under the background of the times when many well-known international and domestic universities such as MIT and Qingbei Fujiao already have their own \LaTeX{} templates, Beijing Language and Culture University should have a decent thesis template. This paper introduces the design and usage of the \LaTeX{} template for BLCU Master/Doctor thesis, which intends to start further discussion on this issue.
+		
+		\keywords*{CSUST; Bachelor thesis template; \LaTeX{} typesetting system}
+	\end{abstract*}
+
+	\makecontents
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{工作一}
+\section{背景与意义}
+\subsection{研究背景}
+\subsubsection{ABC}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+\begin{equation}
+	E = mc^2
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+
+\chapter{工作二}
+\section{背景与意义}
+\subsection{研究背景}
+\subsubsection{ABC}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+
+\chapter{工作三}
+\section{背景与意义}
+\subsection{研究背景}
+\subsubsection{ABC}
+\subsubsection{ABC}
+ABC\citet{Xiang:20}
+
+ABC\citep{Xiang:20}
+
+\nocite{*}
+\bibliographystyle{gbt7714-numerical}
+\addcontentsline{toc}{chapter}{参考文献}
+\bibliography{ccl2022-zh}
+
+\appendix
+
+\chapter{图表附录}
+\section{图片}
+\subsection{啥啥啥啥}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+	\caption{北语Logo}
+\end{figure}
+
+\chapter{ABC}
+\section{abc}
+\subsection{123}
+
+\end{document}
