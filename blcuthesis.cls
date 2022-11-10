@@ -1,22 +1,23 @@
 % Identification
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{BLCUThesis}[2022/08/09 Unofficial LaTeX Document Class for BLCU Thesis]
+\ProvidesPackage{blcuthesis}[2022/08/09 Unofficial LaTeX Document Class for BLCU Thesis]
 
 % Preliminary declarations
 %% 基本文档类及引入的宏包 %%
 \LoadClass{report}
 \RequirePackage[UTF8,zihao=-4,heading=true,linespread=1.5]{ctex}
-\RequirePackage[a4paper,top=25mm,bottom=20mm,left=30mm,right=20mm]{geometry}
-\RequirePackage[colorlinks, linkcolor=black, anchorcolor=yellow, citecolor=blue]{hyperref}
+%\RequirePackage[a4paper,top=25mm,bottom=20mm,left=30mm,right=20mm]{geometry}
+\RequirePackage[a4paper,top=25mm,bottom=25mm,left=30mm,right=30mm]{geometry}
+\RequirePackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
 \RequirePackage{amssymb, amsfonts, amsmath, amsthm, mathtools, mathrsfs, bm, calc} %% 和数学相关的一些宏包
 \RequirePackage{bookmark}
 \RequirePackage{graphicx}
 \RequirePackage{setspace}
 \RequirePackage{needspace}
 \RequirePackage{lastpage}
-\RequirePackage{chngcntr}  % 图标按章节编号
+\RequirePackage{chngcntr}  % 图表按章节编号
 \RequirePackage{placeins}  % 图片仅限本章浮动
-\RequirePackage{float}  % 浮动体的 H 选项
+\RequirePackage{stfloats}  % 浮动体的 H 选项
 \RequirePackage{caption,subcaption}  % 标题控制
 \RequirePackage{listings}  % 代码环境
 \RequirePackage{xcolor}  % 颜色支持
@@ -37,6 +38,12 @@
 \RequirePackage{ulem}  % 删除线  
 \RequirePackage{ wasysym}
 \RequirePackage{kvoptions}
+\RequirePackage{enumitem}
+\RequirePackage{titlesec}
+\RequirePackage{array}
+\RequirePackage{pifont}
+\RequirePackage{multirow}
+\RequirePackage{fancyhdr}
 
 % Options
 \SetupKeyvalOptions{family=blcu, prefix=blcu@}
@@ -70,6 +77,10 @@
 \newcommand\fzsong{\CJKfamily{FZSong}}
 
 \setmainfont{Times New Roman}  % 西文默认字体
+\renewcommand{\bibfont}{\zihao{5}}
+
+\newfontfamily\urlfontfamily{SimSun}
+\def\UrlFont{\urlfontfamily}
 
 % 章节标题
 \ctexset{
@@ -93,22 +104,51 @@
         number=\arabic{subsubsection},
         name = {（,）},
     },
+	paragraph = {
+		format = \bfseries\heiti\zihao{-4},
+%		indent = 2\ccwd,
+	},
     tocdepth=1,
-    secnumdepth=4,
+    secnumdepth=3,
+    listfigurename={图片},
 }
 
-%% 页眉页脚预设置
-%\pagestyle{fancy}
-%\fancyhf{}
+% \paragraph 命令行距调整 {段首}{段前行间距}{标题后间距}
+\titlespacing{\paragraph}{2em}{0pt}{1em}
 
-%% 页眉设置
-%\fancyhead[L]{  % 设置页眉左侧
-    %\raisebox{-.1cm}{
-        %\includegraphics[height=1cm]{figures/BLCULogo.png}
-        %\includegraphics[height=1cm]{figures/BLCULogoText.png}
-        %}
-    %}
-%\fancyhead[R]{\let\\=\relax\heiti\zihao{5}\BLCUThesis@title}  % 设置页眉右侧
+% 设置 \item 之间的间距
+\setenumerate[1]{
+	itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=0pt}
+\setitemize[1]{
+	itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=0pt}
+\setdescription{
+	itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=0pt}
+
+% 设置表格相关命令
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+% footnote 编号在 chapter 之间连续
+\counterwithout{footnote}{chapter}
+
+% 页眉页脚预设置
+\pagestyle{fancy}
+\fancyhf{}
+
+% 页眉设置
+\fancyhead[L]{  % 设置页眉左侧
+    \raisebox{-.1cm}{
+        \includegraphics[height=0.6cm]{figures/BLCULogo.png}
+        \includegraphics[height=0.6cm]{figures/BLCULogoText.png}
+        }
+    }
+
+%\fancyhead[R]{\let\\=\relax\heiti\zihao{5}\blcuthesis@title}  % 设置页眉右侧
+\fancyhead[R]{\let\\=\relax \heiti\zihao{5}\leftmark}  % 设置页眉右侧
+\fancyfoot[C]{\thepage}
 
 % 长度变量，定义各种封面时使用
 \newlength{\maxwidth}
@@ -164,99 +204,103 @@
 
 % 填写基本信息的命令
 % 论文题目
-\newcommand{\BLCUThesis@title}{题目}
-\newcommand{\BLCUThesis@entitle}{Title}
+\newcommand{\blcuthesis@title}{题目}
+\newcommand{\blcuthesis@entitle}{Title}
 \newcommand{\thesisTitle}[2]{
-    \def\BLCUThesis@title{#1}
-    \def\BLCUThesis@entitle{#2}
+    \def\blcuthesis@title{#1}
+    \def\blcuthesis@entitle{#2}
 }
 
 % 论文完成时间
-\newcommand{\BLCUThesis@completeYear}{}
-\newcommand{\BLCUThesis@completeMonth}{}
-\newcommand{\BLCUThesis@completeDay}{}
+\newcommand{\blcuthesis@completeYear}{}
+\newcommand{\blcuthesis@completeMonth}{}
+\newcommand{\blcuthesis@completeDay}{}
 \newcommand{\thesisCompleteTime}[3]{
-    \def\BLCUThesis@completeYear{#1}
-    \def\BLCUThesis@completeMonth{#2}
-    \def\BLCUThesis@completeDay{#3}
+    \def\blcuthesis@completeYear{#1}
+    \def\blcuthesis@completeMonth{#2}
+    \def\blcuthesis@completeDay{#3}
 }
 
 % 学生姓名
-\newcommand{\BLCUThesis@stuName}{}
-\newcommand{\stuName}[1]{\def\BLCUThesis@stuName{#1}}
+\newcommand{\blcuthesis@stuName}{}
+\newcommand{\stuName}[1]{
+	\def\blcuthesis@stuName{#1}
+}
 
 % 学生国籍
-\newcommand{\BLCUThesis@stuCountry}{}
-\newcommand{\stuCountry}[1]{\def\BLCUThesis@stuCountry{#1}}
+\newcommand{\blcuthesis@stuCountry}{}
+\newcommand{\stuCountry}[1]{
+	\def\blcuthesis@stuCountry{#1}
+}
 
 % 学生学号
-\newcommand{\BLCUThesis@stuID}{}
+\newcommand{\blcuthesis@stuID}{}
 \newcommand{\stuID}[1]{
-    \def\BLCUThesis@stuID{#1}
+    \def\blcuthesis@stuID{#1}
 }
 
 % 学生班级
-\newcommand{\BLCUThesis@stuClass}{}
-\newcommand{\BLCUThesis@stuShortClass}{}
+\newcommand{\blcuthesis@stuClass}{}
+\newcommand{\blcuthesis@stuShortClass}{}
 \newcommand{\stuClass}[2]{
-    \def\BLCUThesis@stuClass{#1}
-    \def\BLCUThesis@stuShortClass{#2}
+    \def\blcuthesis@stuClass{#1}
+    \def\blcuthesis@stuShortClass{#2}
 }
 
 % 学生专业
-\newcommand{\BLCUThesis@stuMajor}{}
+\newcommand{\blcuthesis@stuMajor}{}
 \newcommand{\stuMajor}[1]{
-    \def\BLCUThesis@stuMajor{#1}
+    \def\blcuthesis@stuMajor{#1}
 }
 
 % 学生研究方向
-\newcommand{\BLCUThesis@stuDirection}{}
+\newcommand{\blcuthesis@stuDirection}{}
 \newcommand{\stuDirection}[1]{
-    \def\BLCUThesis@stuDirection{#1}
+    \def\blcuthesis@stuDirection{#1}
 }
 
 % 指导老师姓名
-\newcommand{\BLCUThesis@supervisorName}{}
+\newcommand{\blcuthesis@supervisorName}{}
 \newcommand{\supervisorName}[1]{
-    \def\BLCUThesis@supervisorName{#1}
+    \def\blcuthesis@supervisorName{#1}
 }
 
 % 学生所在学院
-\newcommand{\BLCUThesis@stuCollege}{}
+\newcommand{\blcuthesis@stuCollege}{}
 \newcommand{\stuCollege}[1]{
-    \def\BLCUThesis@stuCollege{#1}
+    \def\blcuthesis@stuCollege{#1}
 }
 
 % 诚信声明作者签名
-\newcommand{\BLCUThesis@integrityStatement@author}{}
+\newcommand{\blcuthesis@integrityStatement@author}{}
 \newcommand{\integrityStatementAuthor}[1]{
-    \def\BLCUThesis@integrityStatement@author{#1}
+    \def\blcuthesis@integrityStatement@author{#1}
 }
 
 % 诚信声明导师签名
-\newcommand{\BLCUThesis@integrityStatement@supervisor}{}
+\newcommand{\blcuthesis@integrityStatement@supervisor}{}
 \newcommand{\integrityStatementSupervisor}[1]{
-    \def\BLCUThesis@integrityStatement@supervisor{#1}
+    \def\blcuthesis@integrityStatement@supervisor{#1}
 }
 
 % 诚信声明年月日
-\newcommand{\BLCUThesis@integrityStatement@year}{}
-\newcommand{\BLCUThesis@integrityStatement@month}{}
-\newcommand{\BLCUThesis@integrityStatement@day}{}
+\newcommand{\blcuthesis@integrityStatement@year}{}
+\newcommand{\blcuthesis@integrityStatement@month}{}
+\newcommand{\blcuthesis@integrityStatement@day}{}
 \newcommand{\integrityStatementDate}[3]{
-    \def\BLCUThesis@integrityStatement@year{#1}
-    \def\BLCUThesis@integrityStatement@month{#2}
-    \def\BLCUThesis@integrityStatement@day{#3}
+    \def\blcuthesis@integrityStatement@year{#1}
+    \def\blcuthesis@integrityStatement@month{#2}
+    \def\blcuthesis@integrityStatement@day{#3}
 }
 
 % 定义中英文摘要的命令
-\newcommand{\BLCUThesis@abstract@title}{\BLCUThesis@title}
-\newcommand{\BLCUThesis@abstract@entitle}{\MakeUppercase{\BLCUThesis@entitle}}
+\newcommand{\blcuthesis@abstract@title}{\blcuthesis@title}
+\newcommand{\blcuthesis@abstract@entitle}{\MakeUppercase{\blcuthesis@entitle}}
 \newcommand{\abstractZhtitle}[1]{
-    \def\BLCUThesis@abstract@title{#1}
+    \def\blcuthesis@abstract@title{#1}
 }
 \newcommand{\abstractEntitle}[1]{
-    \def\BLCUThesis@abstract@entitle{#1}
+    \def\blcuthesis@abstract@entitle{#1}
 }
 
 % 制作匿名评审封面
@@ -300,7 +344,7 @@
                 \vspace*{-2\baselineskip}  % 2.78cm
                 \hspace*{\maxwidth}
                 \begin{minipage}[t][2\baselineskip][t]{\titleBoxLen}
-                    \begin{center}\BLCUThesis@title\end{center}
+                    \begin{center}\blcuthesis@title\end{center}
                 \end{minipage}
                 
                 \makebox[\maxwidth][s]{English Title：}\underline{\makebox[\titleBoxLen][l]{}}
@@ -311,12 +355,12 @@
                 \hspace*{\maxwidth}
                 \begin{minipage}[t][2\baselineskip][t]{\titleBoxLen}
                 	\zihao{3}
-                    \begin{center}\BLCUThesis@entitle\end{center}
+                    \begin{center}\blcuthesis@entitle\end{center}
                 \end{minipage}
                 
-                \makebox[\maxwidth][s]{专业：} \underline{\makebox[\titleBoxLen][c]{\BLCUThesis@stuMajor}}
+                \makebox[\maxwidth][s]{专业：} \underline{\makebox[\titleBoxLen][c]{\blcuthesis@stuMajor}}
                 
-                \makebox[\maxwidth][s]{研究方向：} \underline{\makebox[\titleBoxLen][c]{\BLCUThesis@stuDirection}}
+                \makebox[\maxwidth][s]{研究方向：} \underline{\makebox[\titleBoxLen][c]{\blcuthesis@stuDirection}}
                 
             \end{spacing}
         \end{center}
@@ -325,8 +369,8 @@
             \vspace*{1cm}
             \zihao{-2}
             \makebox[\linewidth][c]{北京语言大学研究生院制} 
-            \makebox[4em][r]{\BLCUThesis@completeYear} 年
-            \makebox[2em][r]{\BLCUThesis@completeMonth} 月
+            \makebox[4em][r]{\blcuthesis@completeYear} 年
+            \makebox[2em][r]{\blcuthesis@completeMonth} 月
         \end{center}
         
     \end{titlepage}
@@ -364,7 +408,7 @@
                 \vspace*{-2\baselineskip}  % 2.78cm
                 \hspace*{\maxwidth}
                 \begin{minipage}[t][2\baselineskip][t]{\titleBoxLen}
-                    \begin{center}\BLCUThesis@title\end{center}
+                    \begin{center}\blcuthesis@title\end{center}
                 \end{minipage}
             \end{spacing}
         \end{center}
@@ -373,34 +417,38 @@
             \vspace*{-2\baselineskip+2cm}
             \begin{spacing}{2}
                 \bfseries\zihao{3}
-                \makebox[2em][s]{姓名}：\underline{\makebox[\len][c]{\BLCUThesis@stuName}}
+                \makebox[2em][s]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
                 
-                \makebox[2em][s]{国籍}：\underline{\makebox[\len][c]{\BLCUThesis@stuCountry}}
+                \makebox[2em][s]{国籍}：\underline{\makebox[\len][c]{\blcuthesis@stuCountry}}
                 
-                \makebox[2em][s]{学号}：\underline{\makebox[\len][c]{\BLCUThesis@stuID}}
+                \makebox[2em][s]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
                 
-                \makebox[2em][s]{院系}：\underline{\makebox[\len][c]{\BLCUThesis@stuCollege}}
+                \makebox[2em][s]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
                 
-                \makebox[2em][s]{专业}：\underline{\makebox[\len][c]{\BLCUThesis@stuMajor}}
+                \makebox[2em][s]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
                 
-                \makebox[2em][s]{导师}：\underline{\makebox[\len][c]{\BLCUThesis@supervisorName}}
+                \makebox[2em][s]{导师}：\underline{\makebox[\len][c]{\blcuthesis@supervisorName}}
             \end{spacing}
         \end{center}
         
         \begin{center}
             \vspace*{1cm}
             \bfseries\zihao{4}
-            \makebox[4em][r]{\BLCUThesis@completeYear} 年
-            \makebox[2em][r]{\BLCUThesis@completeMonth} 月
+            \makebox[4em][r]{\blcuthesis@completeYear} 年
+            \makebox[2em][r]{\blcuthesis@completeMonth} 月
         \end{center}
         
     \end{titlepage}
     \cleardoublepage
 }
 
-\newcommand{\makecover}{\makeReviewCover}
+\newcommand{\makecover}{
+	\makeReviewCover
+}
 \ifblcu@final
-    \renewcommand{\makecover}{\makeFinalCover}
+    \renewcommand{\makecover}{
+    	\makeFinalCover
+    }
 \fi
 
 \def \makeIntegrityStatement {
@@ -424,11 +472,11 @@
         \begin{spacing}{2}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\BLCUThesis@integrityStatement@author}
+                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@author}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{日期}：\underline{\makebox[3cm][c]{
-                        \BLCUThesis@integrityStatement@year{.}\BLCUThesis@integrityStatement@month{.}\BLCUThesis@integrityStatement@day
+                        \blcuthesis@integrityStatement@year{.}\blcuthesis@integrityStatement@month{.}\blcuthesis@integrityStatement@day
             }}}
         \end{spacing}
         
@@ -444,15 +492,15 @@
         \begin{spacing}{2}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\BLCUThesis@integrityStatement@author}
+                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@author}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{导师签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\BLCUThesis@integrityStatement@supervisor}
+                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@supervisor}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{日期}：\underline{\makebox[3cm][c]{
-                        \BLCUThesis@integrityStatement@year{.}\BLCUThesis@integrityStatement@month{.}\BLCUThesis@integrityStatement@day
+                        \blcuthesis@integrityStatement@year{.}\blcuthesis@integrityStatement@month{.}\blcuthesis@integrityStatement@day
             }}}
         \end{spacing}
         
@@ -464,11 +512,13 @@
 \newcommand\keywords[1]{\ \\{\heiti\zihao{4}关键词：}{#1}}  % 黑体四号
 \WithSuffix\newcommand\keywords*[1]{\ \\{\bfseries\zihao{4}Key words: }{#1}}  % 四号加粗
 \renewenvironment{abstract}{%
+	\markboth{摘要}{}
+	\addcontentsline{toc}{chapter}{摘要}
     \begin{center}
         \heiti
         \vspace*{\baselineskip}
         
-        \zihao{3} \BLCUThesis@abstract@title		
+        \zihao{3} \blcuthesis@abstract@title		
         
         \vspace*{\baselineskip}
         
@@ -482,15 +532,18 @@
 }
 
 \newenvironment{abstract*}{%
+	\markboth{ABSTRACT}{}
+	\addcontentsline{toc}{chapter}{Abstract}
     \begin{center}
         \vspace*{\baselineskip}
         
-        \bfseries\heiti\zihao{3} \BLCUThesis@abstract@entitle
+        \bfseries\heiti\zihao{3} \blcuthesis@abstract@entitle
         
         \vspace*{\baselineskip}
         
         \bfseries\zihao{-3}ABSTRACT \\\ \\
     \end{center}
+	\par
 }{%
     \cleardoublepage
 }
@@ -498,9 +551,23 @@
 % 制作目录的命令
 \newcommand{\makecontents}{%
     \pdfbookmark[1]{目录}{contents}  % 将目录添加到pdf书签
-    \renewcommand\contentsname{\heiti\zihao{3}目\hspace{2em}录}  % 设置目录字样
-    %%	\renewcommand\cftsecfont{\heiti}
+    \renewcommand\contentsname{目\hspace{2em}录}  % 设置目录字样
+%    \renewcommand\cftsecfont{\heiti}
     \renewcommand\cftchapleader{\cftdotfill{\cftdotsep}}  % 
     \tableofcontents
     \cleardoublepage
+}
+
+%图表汇总目录
+\let \oldlof \listoffigures
+\renewcommand{\listoffigures}{\let \cleardoublepage \relax \oldlof}
+\let \oldlot \listoftables
+\renewcommand{\listoftables}{\let \cleardoublepage \relax \oldlot}
+
+\newcommand{\lofandt}[1]{
+	\chapter{图表汇总}
+	\listoffigures
+	\markboth{#1}{}
+	\listoftables
+	\markboth{#1}{}
 }
