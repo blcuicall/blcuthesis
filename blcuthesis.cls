@@ -116,6 +116,9 @@
 % \paragraph 命令行距调整 {段首}{段前行间距}{标题后间距}
 \titlespacing{\paragraph}{2em}{0pt}{1em}
 
+% 调整参考文献间距
+\setlength{\bibsep}{1.5pt}
+
 % 设置 \item 之间的间距
 \setenumerate[1]{
 	itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=0pt}
@@ -570,4 +573,9 @@
 	\markboth{#1}{}
 	\listoftables
 	\markboth{#1}{}
+}
+
+\newcommand{\acknowledgement}[1]{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
 }
