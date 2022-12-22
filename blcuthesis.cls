@@ -102,6 +102,7 @@
         format = \heiti\zihao{-4},  % 黑体小四号
         indent = 2\ccwd,  % 缩进两字符
         number=\arabic{subsubsection},
+        aftername={},
         name = {（,）},
     },
 	paragraph = {
