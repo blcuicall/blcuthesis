@@ -44,6 +44,7 @@
 \RequirePackage{pifont}
 \RequirePackage{multirow}
 \RequirePackage{fancyhdr}
+\RequirePackage{etoolbox}
 
 % Options
 \SetupKeyvalOptions{family=blcu, prefix=blcu@}
@@ -106,7 +107,7 @@
         name = {（,）},
     },
 	paragraph = {
-		format = \bfseries\heiti\zihao{-4},
+		format = \heiti\zihao{-4},
 %		indent = 2\ccwd,
 	},
     tocdepth=1,
@@ -153,6 +154,10 @@
 %\fancyhead[R]{\let\\=\relax\heiti\zihao{5}\blcuthesis@title}  % 设置页眉右侧
 \fancyhead[R]{\let\\=\relax \heiti\zihao{5}\leftmark}  % 设置页眉右侧
 \fancyfoot[C]{\thepage}
+
+\fancypagestyle{plain}{
+	\pagestyle{fancy}
+}
 
 % 长度变量，定义各种封面时使用
 \newlength{\maxwidth}
@@ -484,7 +489,7 @@
             }}}
         \end{spacing}
         
-        \vspace*{0.5cm}
+        \vspace*{0.3cm}
         
         \begin{center}
             \zihao{-2}
@@ -563,20 +568,25 @@
 }
 
 %图表汇总目录
-\let \oldlof \listoffigures
-\renewcommand{\listoffigures}{\let \cleardoublepage \relax \oldlof}
-\let \oldlot \listoftables
-\renewcommand{\listoftables}{\let \cleardoublepage \relax \oldlot}
+\patchcmd{\listoffigures}{%
+	\@mkboth{\MakeUppercase\listfigurename}{\MakeUppercase\listfigurename}%
+}{}{}{}
+\patchcmd{\listoftables}{%
+	\@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}%
+}{}{}{}
 
-\newcommand{\lofandt}[1]{
-	\chapter{图表汇总}
-	\listoffigures
-	\markboth{#1}{}
-	\listoftables
-	\markboth{#1}{}
+\newcommand{\listoffiguresandtables}{
+		\begingroup
+		\let \cleardoublepage \relax
+		\vspace*{-2cm}
+		\listoffigures
+		\vspace*{-1cm}
+		\listoftables
+		\endgroup
 }
 
 \newcommand{\acknowledgement}[1]{
 	\chapter*{#1}
 	\addcontentsline{toc}{chapter}{#1}
+	\markboth{#1}{}
 }
