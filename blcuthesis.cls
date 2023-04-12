@@ -10,7 +10,8 @@
 \RequirePackage[a4paper,top=25mm,bottom=25mm,left=30mm,right=30mm]{geometry}
 \RequirePackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
 \RequirePackage{amssymb, amsfonts, amsmath, amsthm, mathtools, mathrsfs, bm, calc} %% 和数学相关的一些宏包
-\RequirePackage{bookmark}
+\RequirePackage{fontspec}
+\RequirePackage[numbered]{bookmark}
 \RequirePackage{graphicx}
 \RequirePackage{setspace}
 \RequirePackage{needspace}
@@ -18,7 +19,8 @@
 \RequirePackage{chngcntr}  % 图表按章节编号
 \RequirePackage{placeins}  % 图片仅限本章浮动
 \RequirePackage{stfloats}  % 浮动体的 H 选项
-\RequirePackage{caption,subcaption}  % 标题控制
+\RequirePackage{subfigure}
+\RequirePackage{caption}  % 标题控制
 \RequirePackage{listings}  % 代码环境
 \RequirePackage{xcolor}  % 颜色支持
 \RequirePackage{tcolorbox}  % 文本框
@@ -32,7 +34,7 @@
 \RequirePackage{indentfirst}
 \RequirePackage[final]{pdfpages}
 \RequirePackage{titlesec}  % titlespacing
-\RequirePackage[titles]{tocloft}  % 用于设置目录条目
+\RequirePackage[titles,subfigure]{tocloft}  % 用于设置目录条目
 \RequirePackage{suffix}  % 定义 * 命令
 \RequirePackage{varwidth}  
 \RequirePackage{ulem}  % 删除线  
@@ -110,7 +112,7 @@
 		format = \heiti\zihao{-4},
 %		indent = 2\ccwd,
 	},
-    tocdepth=1,
+    tocdepth=2,
     secnumdepth=3,
     listfigurename={图片},
 }
@@ -146,8 +148,8 @@
 % 页眉设置
 \fancyhead[L]{  % 设置页眉左侧
     \raisebox{-.1cm}{
-        \includegraphics[height=0.6cm]{figures/BLCULogo.png}
-        \includegraphics[height=0.6cm]{figures/BLCULogoText.png}
+        \includegraphics[height=0.6cm]{figures/BLCULogo.pdf}
+        \includegraphics[height=0.6cm]{figures/BLCULogoText.pdf}
         }
     }
 
@@ -320,9 +322,9 @@
 
         \begin{center}
             \vspace*{1.5\baselineskip}
-            \includegraphics[width=2cm]{figures/BLCULogo.png}
-            \hspace*{1cm}
-            \includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+            \includegraphics[height=2cm]{figures/BLCULogo.pdf}
+            \quad
+            \includegraphics[height=2cm]{figures/BLCULogoText.pdf}
         \end{center}
         
         \begin{center}
@@ -393,9 +395,9 @@
         
         \begin{center}
             %\vspace*{1.2\baselineskip}
-            \includegraphics[width=2cm]{figures/BLCULogo.png}
-            \hspace*{1cm}
-            \includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+            \includegraphics[height=2cm]{figures/BLCULogo.pdf}
+            \quad
+            \includegraphics[height=2cm]{figures/BLCULogoText.pdf}
         \end{center}
         
         \begin{center}
@@ -467,8 +469,9 @@
         \zihao{-3}
         \begin{center}
             %\vspace*{1.2\baselineskip}
-            \includegraphics[width=2cm]{figures/BLCULogo.png}
-            \includegraphics[width=9.5cm]{figures/BLCULogoTextZhEn.png}
+            \includegraphics[height=2cm]{figures/BLCULogo.pdf}
+            \quad
+            \includegraphics[height=2cm]{figures/BLCULogoTextZhEn.pdf}
         \end{center}
         
         \begin{center}
