@@ -103,13 +103,13 @@
     },
     subsubsection = {  % 四级标题
         format = \heiti\zihao{-4},  % 黑体小四号
-        indent = 2\ccwd,  % 缩进两字符
+%        indent = 2\ccwd,  % 缩进两字符
         number=\arabic{subsubsection},
         aftername={},
         name = {（,）},
     },
 	paragraph = {
-		format = \heiti\zihao{-4},
+		format = \bfseries\heiti\zihao{-4},
 %		indent = 2\ccwd,
 	},
     tocdepth=2,
@@ -148,8 +148,8 @@
 % 页眉设置
 \fancyhead[L]{  % 设置页眉左侧
     \raisebox{-.1cm}{
-        \includegraphics[height=0.6cm]{figures/BLCULogo.pdf}
-        \includegraphics[height=0.6cm]{figures/BLCULogoText.pdf}
+        \includegraphics[height=0.5cm]{figures/BLCULogo.pdf}
+        \includegraphics[height=0.5cm]{figures/BLCULogoText.pdf}
         }
     }
 
@@ -238,6 +238,12 @@
 	\def\blcuthesis@stuName{#1}
 }
 
+% 学生英文姓名
+\newcommand{\blcuthesis@stuEnName}{}
+\newcommand{\stuEnName}[1]{
+	\def\blcuthesis@stuEnName{#1}
+}
+
 % 学生国籍
 \newcommand{\blcuthesis@stuCountry}{}
 \newcommand{\stuCountry}[1]{
@@ -264,6 +270,12 @@
     \def\blcuthesis@stuMajor{#1}
 }
 
+% 学生英文专业
+\newcommand{\blcuthesis@stuEnMajor}{}
+\newcommand{\stuEnMajor}[1]{
+	\def\blcuthesis@stuEnMajor{#1}
+}
+
 % 学生研究方向
 \newcommand{\blcuthesis@stuDirection}{}
 \newcommand{\stuDirection}[1]{
@@ -274,6 +286,12 @@
 \newcommand{\blcuthesis@supervisorName}{}
 \newcommand{\supervisorName}[1]{
     \def\blcuthesis@supervisorName{#1}
+}
+
+% 指导老师英文姓名
+\newcommand{\blcuthesis@supervisorEnName}{}
+\newcommand{\supervisorEnName}[1]{
+	\def\blcuthesis@supervisorEnName{#1}
 }
 
 % 学生所在学院
@@ -402,7 +420,7 @@
         
         \begin{center}
             \bfseries\fzsong\zihao{-0}
-            %\vspace*{1cm}
+            \vspace*{1cm}
             \makebox{\ifblcu@doctor{博士}\else{硕士}\fi{研究生学位论文}}
         \end{center}
         
@@ -410,7 +428,8 @@
             \vspace*{2cm}
             \begin{spacing}{1.8}
                 \bfseries\heiti\zihao{-2}
-                \settowidth{\maxwidth}{题~~目：}
+%                \settowidth{\maxwidth}{题\quad 目：}
+				\setlength{\maxwidth}{4em}
                 \makebox[\maxwidth][s]{题目：}\underline{\makebox[\titleBoxLen][l]{}}
                 
                 \hspace*{\maxwidth}
@@ -425,25 +444,27 @@
         \end{center}
         
         \begin{center}
-            \vspace*{-2\baselineskip+2cm}
+%            \vspace*{-2\baselineskip+2cm}
             \begin{spacing}{2}
                 \bfseries\zihao{3}
-                \makebox[2em][s]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
+                \makebox[4em][s]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
                 
-                \makebox[2em][s]{国籍}：\underline{\makebox[\len][c]{\blcuthesis@stuCountry}}
+                \makebox[4em][s]{国籍}：\underline{\makebox[\len][c]{\blcuthesis@stuCountry}}
                 
-                \makebox[2em][s]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
+                \makebox[4em][s]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
                 
-                \makebox[2em][s]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
+                \makebox[4em][s]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
                 
-                \makebox[2em][s]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
+                \makebox[4em][s]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
                 
-                \makebox[2em][s]{导师}：\underline{\makebox[\len][c]{\blcuthesis@supervisorName}}
+                 \makebox[4em][s]{研究方向}：\underline{\makebox[\len][c]{\blcuthesis@stuDirection}}
+                                 
+                \makebox[4em][s]{导师}：\underline{\makebox[\len][c]{\blcuthesis@supervisorName}}
             \end{spacing}
         \end{center}
         
         \begin{center}
-            \vspace*{1cm}
+%            \vspace*{1cm}
             \bfseries\zihao{4}
             \makebox[4em][r]{\blcuthesis@completeYear} 年
             \makebox[2em][r]{\blcuthesis@completeMonth} 月
@@ -484,7 +505,7 @@
         \begin{spacing}{2}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@author}
+                        \includegraphics[height=0.6cm]{\blcuthesis@integrityStatement@author}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{日期}：\underline{\makebox[3cm][c]{
@@ -504,11 +525,11 @@
         \begin{spacing}{2}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@author}
+                        \includegraphics[height=0.6cm]{\blcuthesis@integrityStatement@author}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{导师签名}：\underline{\makebox[3cm][c]{
-                        \includegraphics[height=1cm]{\blcuthesis@integrityStatement@supervisor}
+                        \includegraphics[height=1.2cm]{\blcuthesis@integrityStatement@supervisor}
             }}}
             
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{日期}：\underline{\makebox[3cm][c]{
@@ -525,6 +546,7 @@
 \WithSuffix\newcommand\keywords*[1]{\ \\{\bfseries\zihao{4}Key words: }{#1}}  % 四号加粗
 \renewenvironment{abstract}{%
 	\markboth{摘要}{}
+	\phantomsection
 	\addcontentsline{toc}{chapter}{摘要}
     \begin{center}
         \heiti
@@ -545,15 +567,20 @@
 
 \newenvironment{abstract*}{%
 	\markboth{ABSTRACT}{}
+	\phantomsection
 	\addcontentsline{toc}{chapter}{Abstract}
     \begin{center}
         \vspace*{\baselineskip}
         
-        \bfseries\heiti\zihao{3} \blcuthesis@abstract@entitle
+        {\bfseries\heiti\zihao{3} \blcuthesis@abstract@entitle}
         
         \vspace*{\baselineskip}
         
-        \bfseries\zihao{-3}ABSTRACT \\\ \\
+        \zihao{5}
+        \textit{\blcuthesis@stuEnName} (\textit{\blcuthesis@stuEnMajor})
+        
+        Directed by \textit{\blcuthesis@supervisorEnName}        
+%        \bfseries\zihao{-3}ABSTRACT \\\ \\
     \end{center}
 	\par
 }{%
@@ -563,8 +590,11 @@
 % 制作目录的命令
 \newcommand{\makecontents}{%
     \pdfbookmark[1]{目录}{contents}  % 将目录添加到pdf书签
+    \phantomsection
+    \addcontentsline{toc}{chapter}{目录}
     \renewcommand\contentsname{目\hspace{2em}录}  % 设置目录字样
-%    \renewcommand\cftsecfont{\heiti}
+%    \renewcommand\cftsecfont{\bfseries}
+	\setlength{\cftbeforechapskip}{0pt}
     \renewcommand\cftchapleader{\cftdotfill{\cftdotsep}}  % 
     \tableofcontents
     \cleardoublepage
