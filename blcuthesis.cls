@@ -1,3 +1,5 @@
+%Author: Cunliang Kong
+%Affiliation: Beijing Language and Culture University, ICALL Lab
 % Identification
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{blcuthesis}[2022/08/09 Unofficial LaTeX Document Class for BLCU Thesis]
@@ -420,12 +422,13 @@
         
         \begin{center}
             \bfseries\fzsong\zihao{-0}
-            \vspace*{1cm}
+            % 2cm
+            \vspace*{2cm}
             \makebox{\ifblcu@doctor{博士}\else{硕士}\fi{研究生学位论文}}
         \end{center}
         
         \begin{center}
-            \vspace*{2cm}
+            \vspace*{1cm}
             \begin{spacing}{1.8}
                 \bfseries\heiti\zihao{-2}
 %                \settowidth{\maxwidth}{题\quad 目：}
@@ -589,7 +592,7 @@
 
 % 制作目录的命令
 \newcommand{\makecontents}{%
-    \pdfbookmark[1]{目录}{contents}  % 将目录添加到pdf书签
+%    \pdfbookmark[1]{目录}{contents}  % 将目录添加到pdf书签
     \phantomsection
     \addcontentsline{toc}{chapter}{目录}
     \renewcommand\contentsname{目\hspace{2em}录}  % 设置目录字样
@@ -609,6 +612,10 @@
 }{}{}{}
 
 \newcommand{\listoffiguresandtables}{
+		\chapter*{图表目录}
+		\markboth{图表目录}{}
+		\phantomsection
+		\addcontentsline{toc}{chapter}{图表目录}
 		\begingroup
 		\let \cleardoublepage \relax
 		\vspace*{-2cm}
@@ -616,6 +623,7 @@
 		\vspace*{-1cm}
 		\listoftables
 		\endgroup
+		\cleardoublepage
 }
 
 \newcommand{\acknowledgement}[1]{
