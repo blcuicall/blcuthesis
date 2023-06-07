@@ -11,6 +11,7 @@
 %% oneside: 单面打印版
 %% twoside: 双面打印版（每章都出现在右侧，中间加入空白页）
 
+\addbibresource{reference.bib}
 \begin{document}
 	\thesisTitle{
 		北京语言大学硕士、博士\\ \LaTeX 论文模板
@@ -101,9 +102,7 @@
 	ABC\citep{Xiang:20}
 	
 	\nocite{*}
-	\bibliographystyle{gbt7714-numerical}
-	\addcontentsline{toc}{chapter}{参考文献}
-	\bibliography{reference}
+	\printbibliography[heading=bibintoc]
 	
 	\appendix
 	

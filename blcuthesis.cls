@@ -1,5 +1,3 @@
-%Author: Cunliang Kong
-%Affiliation: Beijing Language and Culture University, ICALL Lab
 % Identification
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{blcuthesis}[2022/08/09 Unofficial LaTeX Document Class for BLCU Thesis]
@@ -9,7 +7,7 @@
 \LoadClass{report}
 \RequirePackage[UTF8,zihao=-4,heading=true,linespread=1.5]{ctex}
 %\RequirePackage[a4paper,top=25mm,bottom=20mm,left=30mm,right=20mm]{geometry}
-\RequirePackage[a4paper,top=25mm,bottom=25mm,left=30mm,right=30mm]{geometry}
+\RequirePackage[a4paper,top=30mm,bottom=30mm,left=30mm,right=30mm]{geometry}
 \RequirePackage[colorlinks, linkcolor=black, citecolor=black, urlcolor=black]{hyperref}
 \RequirePackage{amssymb, amsfonts, amsmath, amsthm, mathtools, mathrsfs, bm, calc} %% 和数学相关的一些宏包
 \RequirePackage{fontspec}
@@ -30,7 +28,8 @@
 \RequirePackage{makecell}  % 表格线宽支持
 \RequirePackage{booktabs}  % 三线表支持
 \RequirePackage{bigstrut} %% 该宏包提供 \bigstrut 命令，可以增大表格的行间距
-\RequirePackage{gbt7714}
+%\RequirePackage{gbt7714}
+\RequirePackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
 \RequirePackage{emptypage} %% 此宏包负责的任务是当每一章最后一页是偶数页时，设置空白
 \RequirePackage{tikz}
 \RequirePackage{indentfirst}
@@ -49,6 +48,8 @@
 \RequirePackage{multirow}
 \RequirePackage{fancyhdr}
 \RequirePackage{etoolbox}
+\RequirePackage{xstring}
+\RequirePackage{forloop}
 
 % Options
 \SetupKeyvalOptions{family=blcu, prefix=blcu@}
@@ -91,7 +92,8 @@
 \ctexset{
     chapter = { % 一级标题
         format = \centering\heiti\zihao{3},  % 黑体三号居中
-        number=\chinese{chapter},
+%        number=\chinese{chapter},
+		number=\thechapter,
         name={第,章},
         break=\cleardoublepage,
     },
@@ -123,7 +125,7 @@
 \titlespacing{\paragraph}{2em}{0pt}{1em}
 
 % 调整参考文献间距
-\setlength{\bibsep}{1.5pt}
+%\setlength{\bibsep}{1.5pt}
 
 % 设置 \item 之间的间距
 \setenumerate[1]{
@@ -148,16 +150,17 @@
 \fancyhf{}
 
 % 页眉设置
-\fancyhead[L]{  % 设置页眉左侧
-    \raisebox{-.1cm}{
-        \includegraphics[height=0.5cm]{figures/BLCULogo.pdf}
-        \includegraphics[height=0.5cm]{figures/BLCULogoText.pdf}
-        }
-    }
+%\fancyhead[L]{  % 设置页眉左侧
+%    \raisebox{-.1cm}{
+%        \includegraphics[height=0.5cm]{figures/BLCULogo.pdf}
+%        \includegraphics[height=0.5cm]{figures/BLCULogoText.pdf}
+%        }
+%    }
 
 %\fancyhead[R]{\let\\=\relax\heiti\zihao{5}\blcuthesis@title}  % 设置页眉右侧
-\fancyhead[R]{\let\\=\relax \heiti\zihao{5}\leftmark}  % 设置页眉右侧
-\fancyfoot[C]{\thepage}
+\fancyhead[C]{\let\\=\relax \zihao{5}\leftmark}  % 设置页眉右侧
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\zihao{5}\thepage}
 
 \fancypagestyle{plain}{
 	\pagestyle{fancy}
@@ -182,13 +185,15 @@
     \counterwithin{figure}{chapter}  % 图按章节编号
     \counterwithin{table}{chapter}  % 表按章节编号
     \renewcommand{\thefigure}{\thechapter.\arabic{figure}}  % 图几.几
-    \renewcommand{\thetable}{\thechapter-\arabic{table}}  % 表几-几
+    \renewcommand{\thetable}{\thechapter.\arabic{table}}  % 表几-几
 \fi
 
 \numberwithin{equation}{chapter}
 \renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
-\newtagform{leaderText}{式（}{）}
+\newtagform{leaderText}{（}{）}
 \usetagform{leaderText}
+\AtBeginDocument{\setlength\abovedisplayskip{4pt}}
+\AtBeginDocument{\setlength\belowdisplayskip{4pt}}
 
 % 增大表格间距
 % \renewcommand{\arraystretch}{1.2}
@@ -369,10 +374,15 @@
                 \settowidth{\maxwidth}{English Title：}
                 \makebox[\maxwidth][s]{题目：}\underline{\makebox[\titleBoxLen][l]{}}
                 
-                \hspace*{\maxwidth}
-                \underline{\makebox[\titleBoxLen][l]{}}
+                \StrCount{\blcuthesis@title}{\\}[\numbackslashes]
+                \newcounter{ct}
+                \forloop{ct}{0}{\value{ct} < \numbackslashes} {
+                	\hspace*{\maxwidth}
+                	\underline{\makebox[\titleBoxLen][l]{}}
+                }
                 
-                \vspace*{-2\baselineskip}  % 2.78cm
+%                \vspace*{-2\baselineskip}  % 2.78cm
+				\vspace*{-\numexpr\numbackslashes+1\relax\baselineskip}
                 \hspace*{\maxwidth}
                 \begin{minipage}[t][2\baselineskip][t]{\titleBoxLen}
                     \begin{center}\blcuthesis@title\end{center}
@@ -423,7 +433,7 @@
         \begin{center}
             \bfseries\fzsong\zihao{-0}
             % 2cm
-            \vspace*{2cm}
+            \vspace*{1cm}
             \makebox{\ifblcu@doctor{博士}\else{硕士}\fi{研究生学位论文}}
         \end{center}
         
@@ -435,10 +445,15 @@
 				\setlength{\maxwidth}{4em}
                 \makebox[\maxwidth][s]{题目：}\underline{\makebox[\titleBoxLen][l]{}}
                 
-                \hspace*{\maxwidth}
-                \underline{\makebox[\titleBoxLen][l]{}}
+                \StrCount{\blcuthesis@title}{\\}[\numbackslashes]
+                \newcounter{ct}
+                \forloop{ct}{0}{\value{ct} < \numbackslashes} {
+                	\hspace*{\maxwidth}
+                	\underline{\makebox[\titleBoxLen][l]{}}
+                }
                 
-                \vspace*{-2\baselineskip}  % 2.78cm
+%                \vspace*{-1\baselineskip}  % 2.78cm
+				\vspace*{-\numexpr\numbackslashes+1\relax\baselineskip}
                 \hspace*{\maxwidth}
                 \begin{minipage}[t][2\baselineskip][t]{\titleBoxLen}
                     \begin{center}\blcuthesis@title\end{center}
@@ -447,7 +462,7 @@
         \end{center}
         
         \begin{center}
-%            \vspace*{-2\baselineskip+2cm}
+            \vspace*{-1\baselineskip}
             \begin{spacing}{2}
                 \bfseries\zihao{3}
                 \makebox[4em][s]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
@@ -457,6 +472,8 @@
                 \makebox[4em][s]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
                 
                 \makebox[4em][s]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
+                
+                \makebox[4em][s]{学位类型}：\underline{\makebox[\len][c]{中国语言文学}}
                 
                 \makebox[4em][s]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
                 
@@ -488,8 +505,8 @@
 
 \def \makeIntegrityStatement {
     \begin{titlepage}
-        \setlength{\leftskip}{1.6em}
-        \setlength{\rightskip}{1.6em}
+%        \setlength{\leftskip}{0.8em}
+%        \setlength{\rightskip}{0.8em}
         \zihao{-3}
         \begin{center}
             %\vspace*{1.2\baselineskip}
@@ -506,6 +523,7 @@
         本人郑重声明：所呈交的论文，是本人在导师指导下，独立进行的研究工作及取得的研究成果。尽我所知，除了文中已经注明引用和致谢的地方外，论文中不包含其他人或集体已经发表或撰写的研究成果，也不包含为获得北京语言大学或其他教育机构的学位或证书所使用过的材料。对本文的研究做出重要贡献的个人和集体，均已在文中以明确方式标明。本人完全意识到本声明的法律结果由本人承担。
         
         \begin{spacing}{2}
+        	\vspace*{-0.5\baselineskip}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
                         \includegraphics[height=0.6cm]{\blcuthesis@integrityStatement@author}
@@ -516,8 +534,7 @@
             }}}
         \end{spacing}
         
-        \vspace*{0.3cm}
-        
+        \vspace*{-0.3\baselineskip}
         \begin{center}
             \zihao{-2}
             学位论文知识产权权属声明
@@ -526,6 +543,7 @@
         本人郑重声明：本人所呈交论文，是在导师指导下所完成的，论文知识产权归属北京语言大学。学校有权保留并向国家有关部门或机构送交论文的复印件和电子版本，允许论文被查询和借阅，将论文编入有关数据库进行检索等。本人离校后发表或使用学位论文或与该论文直接相关的学术论文获成果时，署名仍为北京语言大学。
         
         \begin{spacing}{2}
+        	\vspace*{-0.5\baselineskip}
             \zihao{-3}
             \makebox[0.85\linewidth][r]{\makebox[4em][s]{签名}：\underline{\makebox[3cm][c]{
                         \includegraphics[height=0.6cm]{\blcuthesis@integrityStatement@author}
@@ -553,15 +571,15 @@
 	\addcontentsline{toc}{chapter}{摘要}
     \begin{center}
         \heiti
-        \vspace*{\baselineskip}
+        \vspace*{0.5\baselineskip}
         
         \zihao{3} \blcuthesis@abstract@title		
         
-        \vspace*{\baselineskip}
+        \vspace*{0.5\baselineskip}
         
         \makebox[4em]{摘\quad 要}
         
-        \vspace*{\baselineskip}
+        \vspace*{0.5\baselineskip}
     \end{center}
     \par
 }{%
@@ -573,11 +591,11 @@
 	\phantomsection
 	\addcontentsline{toc}{chapter}{Abstract}
     \begin{center}
-        \vspace*{\baselineskip}
+%        \vspace*{0.5\baselineskip}
         
         {\bfseries\heiti\zihao{3} \blcuthesis@abstract@entitle}
         
-        \vspace*{\baselineskip}
+        \vspace*{0.5\baselineskip}
         
         \zihao{5}
         \textit{\blcuthesis@stuEnName} (\textit{\blcuthesis@stuEnMajor})
@@ -611,17 +629,23 @@
 	\@mkboth{\MakeUppercase\listtablename}{\MakeUppercase\listtablename}%
 }{}{}{}
 
-\newcommand{\listoffiguresandtables}{
+\newcommand{\listoffiguresandtables}[1]{
 		\chapter*{图表目录}
 		\markboth{图表目录}{}
 		\phantomsection
 		\addcontentsline{toc}{chapter}{图表目录}
 		\begingroup
 		\let \cleardoublepage \relax
+		\renewcommand{\cftfigfont}{图}
+		\renewcommand{\cfttabfont}{表}
+		\setlength{\cftbeforechapskip}{0pt}
+		\let\origaddvspace\addvspace
+		\renewcommand{\addvspace}[1]{}
 		\vspace*{-2cm}
 		\listoffigures
 		\vspace*{-1cm}
 		\listoftables
+		\renewcommand{\addvspace}[1]{\origaddvspace{#1}}
 		\endgroup
 		\cleardoublepage
 }
