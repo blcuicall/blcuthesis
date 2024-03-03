@@ -421,29 +421,36 @@
 
 % 制作最终版封面
 \def\makeFinalCover{
+    \newgeometry{
+        top=2.54cm,
+        bottom=2.54cm,
+        left=3.17cm,
+        right=3.17cm
+    }
+
     \begin{titlepage}
         
         \begin{center}
-            %\vspace*{1.2\baselineskip}
-            \includegraphics[height=2cm]{figures/BLCULogo.pdf}
+            %\vspace*{-1\baselineskip}
+            \includegraphics[height=2.5cm]{figures/BLCULogo.pdf}
             \quad
-            \includegraphics[height=2cm]{figures/BLCULogoText.pdf}
+            \includegraphics[height=2.5cm]{figures/BLCULogoTextZhEn.pdf}
         \end{center}
         
         \begin{center}
             \bfseries\fzsong\zihao{-0}
             % 2cm
-            \vspace*{1cm}
-            \makebox{\ifblcu@doctor{博士}\else{硕士}\fi{研究生学位论文}}
+            % \vspace*{1cm}
+            \makebox[10em][s]{\ifblcu@doctor{博士}\else{硕士}\fi{研究生学位论文}}
         \end{center}
         
         \begin{center}
-            \vspace*{1cm}
+            \vspace*{2.3\baselineskip}
             \begin{spacing}{1.8}
                 \bfseries\heiti\zihao{-2}
 %                \settowidth{\maxwidth}{题\quad 目：}
 				\setlength{\maxwidth}{4em}
-                \makebox[\maxwidth][s]{题目：}\underline{\makebox[\titleBoxLen][l]{}}
+                \makebox[3.5em][s]{题目：}\underline{\makebox[\titleBoxLen][l]{}}
                 
                 \StrCount{\blcuthesis@title}{\\}[\numbackslashes]
                 \newcounter{ct}
@@ -462,35 +469,32 @@
         \end{center}
         
         \begin{center}
-            \vspace*{-1\baselineskip}
-            \begin{spacing}{2}
+            \vspace*{1\baselineskip}
+            \begin{spacing}{2.1}
                 \bfseries\zihao{3}
-                \makebox[4em][s]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
+                \makebox[2em][c]{姓名}：\underline{\makebox[\len][c]{\blcuthesis@stuName}}
                 
-                \makebox[4em][s]{国籍}：\underline{\makebox[\len][c]{\blcuthesis@stuCountry}}
+                \makebox[2em][c]{国籍}：\underline{\makebox[\len][c]{\blcuthesis@stuCountry}}
                 
-                \makebox[4em][s]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
+                \makebox[2em][c]{学号}：\underline{\makebox[\len][c]{\blcuthesis@stuID}}
                 
-                \makebox[4em][s]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
+                \makebox[2em][c]{院系}：\underline{\makebox[\len][c]{\blcuthesis@stuCollege}}
                 
-                \makebox[4em][s]{学位类型}：\underline{\makebox[\len][c]{中国语言文学}}
-                
-                \makebox[4em][s]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
-                
-                 \makebox[4em][s]{研究方向}：\underline{\makebox[\len][c]{\blcuthesis@stuDirection}}
+                \makebox[2em][c]{专业}：\underline{\makebox[\len][c]{\blcuthesis@stuMajor}}
                                  
-                \makebox[4em][s]{导师}：\underline{\makebox[\len][c]{\blcuthesis@supervisorName}}
+                \makebox[2em][c]{导师}：\underline{\makebox[\len][c]{\blcuthesis@supervisorName}}
             \end{spacing}
         \end{center}
         
         \begin{center}
-%            \vspace*{1cm}
+            \vspace*{1\baselineskip}
             \bfseries\zihao{4}
             \makebox[4em][r]{\blcuthesis@completeYear} 年
             \makebox[2em][r]{\blcuthesis@completeMonth} 月
         \end{center}
         
     \end{titlepage}
+    \restoregeometry
     \cleardoublepage
 }
 
