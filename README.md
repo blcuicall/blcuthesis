@@ -138,7 +138,7 @@ git clone https://github.com/blcuicall/blcuthesis.git
 # 致谢
 
 * 感谢 [@cunliangkong](https://github.com/cunliangkong) 师兄对本模板的构建
-* 感谢 [@chongruining](https://github.com/chongruining) 和 [TreemanCHou](https://github.com/TreemanCHou) 对本模板的完善与补充
+* 感谢 [@chongruining](https://github.com/chongruining) 和 [@TreemanCHou](https://github.com/TreemanCHou) 对本模板的完善与补充
 
 
 
