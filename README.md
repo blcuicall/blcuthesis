@@ -2,7 +2,7 @@
 
 本模板是由BLCU-ICALL实验室所维护的北京语言大学硕博学位论文 $\LaTeX$ 模板（非官方）
 
-模板格式参考北京语言大学研究生院官方学位材料：[硕士学位材料](https://yjsy.blcu.edu.cn/art/2023/10/19/art_13228_1169673.html)  [博士学位材料](https://yjsy.blcu.edu.cn/art/2023/10/19/art_13228_1169675.html) 
+模板格式参考北京语言大学研究生院官方学位材料：[硕士学位材料](https://yjsy.blcu.edu.cn/art/2023/10/19/art_13228_1169673.html)  [博士学位材料](https://yjsy.blcu.edu.cn/art/2023/10/19/art_13228_1169675.html) [学位论文编写规则](https://yjsy.blcu.edu.cn/art/2014/3/26/art_13227_1122287.html)
 
 目前该项目仍在开发完善中，欢迎提交 bug/issue
 
@@ -139,6 +139,3 @@ git clone https://github.com/blcuicall/blcuthesis.git
 
 * 感谢 [@cunliangkong](https://github.com/cunliangkong) 师兄对本模板的构建
 * 感谢 [@chongruining](https://github.com/chongruining) 和 [@TreemanCHou](https://github.com/TreemanCHou) 对本模板的完善与补充
-
-
-

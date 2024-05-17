@@ -1,5 +1,5 @@
 % !TeX TS-program = xelatex
-\documentclass[doctor,final,twoside]{blcuthesis}
+\documentclass[doctor,final,oneside,continuousNum]{blcuthesis}
 % 必选参数: master/doctor
 %% master: 硕士论文
 %% doctor: 博士论文
@@ -57,7 +57,7 @@
 	\setcounter{page}{1}
 	\pagenumbering{arabic}
 	
-	\chapter{工作一}
+	\chapter{绪论}
 	\section{背景与意义}
 	\subsection{研究背景}
 	\subsubsection{ABC}
@@ -76,49 +76,67 @@
 		\caption{北语Logo}
 	\end{figure}
 	
+	\chapter{工作一}
+	\section{背景与意义}
+	\subsection{研究背景}
+	\subsubsection{ABC}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+		\caption{北语Logo}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
+		\caption{北语Logo}
+	\end{figure}
+	
 	\chapter{工作二}
 	\section{背景与意义}
 	\subsection{研究背景}
 	\subsubsection{ABC}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
-		\caption{北语Logo}
-	\end{figure}
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
-		\caption{北语Logo}
-	\end{figure}
-	
-	\chapter{工作三}
-	\section{背景与意义}
-	\subsection{研究背景}
 	\subsubsection{ABC}
-	\subsubsection{ABC}
-	ABC\citet{Xiang:20}
+	ABC\citet{Xie:15}
 	
-	ABC\citep{Xiang:20}
+	ABC\citep{Xie:15}
 	
 	\nocite{*}
 	\printbibliography[heading=bibintoc]
 	
 	\appendix
-	
-	\chapter{补充图片}
-	\section{图片}
-	\subsection{示例章节}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
-		\caption{北语Logo}
-	\end{figure}
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=9.8cm]{figures/BLCULogoText.png}
-		\caption{北语Logo}
-	\end{figure}
+
+	\chapter{教育经历及学术成果}
+	\section*{教育经历}
+	2000年1月1日出生于XX省XX市。
+
+	2018年9月考入北京语言大学信息科学学院计算机科学与技术专业，2022年7月本科毕业并获得工学学士学位。
+
+	2022年9月考入北京语言大学信息与科学学院语言智能与技术专业攻读文学硕士至今。
+
+	\section*{论文}
+	\begin{enumerate}[label={[\arabic*]}]
+		\zihao{5}
+		
+		\item Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin. Attention is All you Need. In Proceedings of NIPS 2017.
+	\end{enumerate}
+
+	\section*{专利}
+	\begin{enumerate}[label={[\arabic*]}]
+		\zihao{5}
+		
+		\item 作者1, 作者2. 一种基于XXXXXX的方法与系统. CNXXXXX.
+
+	\end{enumerate}
+
+	\section*{参与项目}
+	\begin{enumerate}[label={[\arabic*]}]
+		\zihao{5}
+
+		\item 外向型汉语学习词典的自动编纂研究. 国家语委重点（科研中心）项目. ZDI135-105.
+	\end{enumerate}
+
+	\acknowledgement{致谢}
+	三年时间转眼即逝，研究生生涯快告一段落了。回首这段时间，我不仅学习到了很多知识和技能，而且提高了分析和解决问题的能力与养成了一定的科学素养。虽然走过了一些弯路，但更加坚定我后来选择学术研究的道路，实在是获益良多。这一切与老师的教诲和同学们的帮助是分不开的，在此对他们表达诚挚的谢意。
 
 \end{document}

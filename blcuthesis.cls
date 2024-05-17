@@ -190,7 +190,7 @@
 
 \numberwithin{equation}{chapter}
 \renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
-\newtagform{leaderText}{（}{）}
+\newtagform{leaderText}{式（}{）}
 \usetagform{leaderText}
 \AtBeginDocument{\setlength\abovedisplayskip{4pt}}
 \AtBeginDocument{\setlength\belowdisplayskip{4pt}}
@@ -572,7 +572,7 @@
 \renewenvironment{abstract}{%
 	\markboth{摘要}{}
 	\phantomsection
-	\addcontentsline{toc}{chapter}{摘要}
+	%\addcontentsline{toc}{chapter}{摘要}
     \begin{center}
         \heiti
         \vspace*{0.5\baselineskip}
@@ -593,7 +593,7 @@
 \newenvironment{abstract*}{%
 	\markboth{ABSTRACT}{}
 	\phantomsection
-	\addcontentsline{toc}{chapter}{Abstract}
+	% \addcontentsline{toc}{chapter}{Abstract}
     \begin{center}
 %        \vspace*{0.5\baselineskip}
         
@@ -613,14 +613,16 @@
 }
 
 % 制作目录的命令
-\newcommand{\makecontents}{%
-%    \pdfbookmark[1]{目录}{contents}  % 将目录添加到pdf书签
+\newcommand{\makecontents}{
     \phantomsection
-    \addcontentsline{toc}{chapter}{目录}
+    %\addcontentsline{toc}{chapter}{目录}
     \renewcommand\contentsname{目\hspace{2em}录}  % 设置目录字样
-%    \renewcommand\cftsecfont{\bfseries}
+    %\renewcommand\cftsecfont{\bfseries}
 	\setlength{\cftbeforechapskip}{0pt}
     \renewcommand\cftchapleader{\cftdotfill{\cftdotsep}}  % 
+    % 自定义目录条目的样式
+    \renewcommand{\cftsecfont}{\bfseries\songti\fontsize{12pt}{12pt}\selectfont}
+    \setcounter{tocdepth}{1}  % 论文目录页排版只排到二级标题，即章和节
     \tableofcontents
     \cleardoublepage
 }
@@ -637,7 +639,7 @@
 		\chapter*{图表目录}
 		\markboth{图表目录}{}
 		\phantomsection
-		\addcontentsline{toc}{chapter}{图表目录}
+		%\addcontentsline{toc}{chapter}{图表目录}
 		\begingroup
 		\let \cleardoublepage \relax
 		\renewcommand{\cftfigfont}{图}
