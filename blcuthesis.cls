@@ -622,9 +622,9 @@
     \renewcommand\cftchapleader{\cftdotfill{\cftdotsep}}  % 
     % 自定义目录条目的样式
     \renewcommand{\cftsecfont}{\bfseries\songti\fontsize{12pt}{12pt}\selectfont}
-    % \setcounter{tocdepth}{1}  % 论文目录页排版只排到二级标题，即章和节
-    \setcounter{tocdepth}{2}  % 论文目录页排版只排到三级标题，即章和节
-    \setlength{\cftsubsecindent}{3em} % 用来更改三级的缩进长度，假如对默认缩进很满意，可以注释本行 
+    \setcounter{tocdepth}{1}  % 默认情况下论文目录页排版只排到二级标题，即章和节
+    % \setcounter{tocdepth}{2}  % 如有需要，注释上一行并取消注释本行，即可让目录生成至三级标题
+    % \setlength{\cftsubsecindent}{3em} % 用来更改三级的缩进长度，假如对默认缩进很满意，可以不设置
     \tableofcontents
     \cleardoublepage
 }
